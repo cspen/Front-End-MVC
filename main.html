@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<title>Model-View-Controller</title>
+<meta charset="utf-8"/>
+
+<body>
+<p id="par">Working</p>
+<a href="">Clickable link</a>
+
+<script>
+
+function Model() {
+}
+Model.prototype.update = function() {
+	console.log("MODEL");
+}
+
+
+function View(model) {
+	this.model = model;
+}
+View.prototype.update = function(event) {
+	console.log("View");
+	document.body.style.backgroundColor = getRandomColor();
+		/* "#" +
+		Math.floor((Math.random() * 16) + 1) + "" +
+		Math.floor((Math.random() * 16) + 1) + "" +
+		Math.floor((Math.random() * 16) + 1); */
+}
+
+
+function Controller(model, view) {
+	this.model = model;
+	this.view = view;
+}
+Controller.prototype.process = function(e) {
+	e.preventDefault();
+	// e.stopImmediatePropagation();
+	console.log("Controller " + e.target.nodeName);
+	this.model.update();
+	this.view.update();
+}
+
+
+
+
+var model = new Model();
+var view = new View(model);
+var controller = new Controller(model, view);
+
+
+
+
+// Capture all click events
+window.onclick = function(e) {
+	controller.process(e);
+}
+
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+
+</script>
+</body>
+</html>
