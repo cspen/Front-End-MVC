@@ -1,8 +1,14 @@
 
 function Model() {
+	this.state;
 }
-Model.prototype.update = function() {
+Model.prototype.update = function(data) {
 	console.log("MODEL");
+	// AJAX calls go here
+	this.state = data;
+}
+Model.prototype.getState = function() {
+	return this.state;
 }
 
 
@@ -11,6 +17,8 @@ function View(model) {
 }
 View.prototype.update = function(event) {
 	console.log("View");
+	var output = document.getElementById("output");
+	output.innerHTML = this.model.getState();
 	document.body.style.backgroundColor = getRandomColor();
 }
 
@@ -21,9 +29,16 @@ function Controller(model, view) {
 }
 Controller.prototype.process = function(e) {
 	e.preventDefault();
-	// e.stopImmediatePropagation();
+	e.stopImmediatePropagation();
+
+	var etn = e.target.nodeName;
+	if(etn === "INPUT") {
+		
+		console.log("INPUT ELEMENT CLICKED");
+	}
+
 	console.log("Controller " + e.target.nodeName);
-	this.model.update();
+	this.model.update(e.target.nodeName);
 	this.view.update();
 }
 
