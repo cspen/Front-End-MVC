@@ -18,7 +18,7 @@ function View(model) {
 View.prototype.update = function(event) {
 	console.log("View");
 	var output = document.getElementById("output");
-	output.innerHTML = this.model.getState();
+	output.value = this.model.getState();
 	document.body.style.backgroundColor = getRandomColor();
 }
 
@@ -31,18 +31,16 @@ Controller.prototype.process = function(e) {
 	e.preventDefault();
 	e.stopImmediatePropagation();
 
+	var elementsToIgnore = ["FORM", "B"];
+
 	var etn = e.target.nodeName;
-	if(etn === "INPUT") {
-		
+	if(!elementsToIgnore.includes(etn)) {		
 		console.log("INPUT ELEMENT CLICKED");
+		console.log("Controller " + e.target.nodeName);
+		this.model.update(e.target.nodeName);
+		this.view.update();
 	}
-
-	console.log("Controller " + e.target.nodeName);
-	this.model.update(e.target.nodeName);
-	this.view.update();
 }
-
-
 
 
 var model = new Model();
