@@ -26,29 +26,27 @@ View.prototype.update = function(event) {
 function Controller(model, view) {
 	this.model = model;
 	this.view = view;
+	this.elementsToIgnore = ["FORM", "B", "I", "EM", "P"];
+
 }
 Controller.prototype.process = function(e) {
-	e.preventDefault();
-	e.stopImmediatePropagation();
-
-	var elementsToIgnore = ["FORM", "B"];
-
+	
 	var etn = e.target.nodeName;
-	if(!elementsToIgnore.includes(etn)) {		
+	if(!this.elementsToIgnore.includes(etn)) {	
+		e.preventDefault();
+		e.stopImmediatePropagation();
+	
 		console.log("INPUT ELEMENT CLICKED");
 		console.log("Controller " + e.target.nodeName);
+
 		this.model.update(e.target.nodeName);
 		this.view.update();
 	}
 }
 
-
 var model = new Model();
 var view = new View(model);
 var controller = new Controller(model, view);
-
-
-
 
 // Capture all click events
 window.onclick = function(e) {
