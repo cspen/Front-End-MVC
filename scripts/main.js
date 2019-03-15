@@ -19,14 +19,47 @@ View.prototype.update = function(event) {
 	console.log("View");
 	var output = document.getElementById("output");
 	output.value = this.model.getState();
-	document.body.style.backgroundColor = getRandomColor();
+
+	
+	// document.body.style.backgroundColor = getRandomColor();
 }
 
 
 function Controller(model, view) {
 	this.model = model;
 	this.view = view;
-	this.elementsToIgnore = ["FORM", "B", "I", "EM", "P"];
+	this.elementsToIgnore = [ 
+		"A",
+		"ABBR",
+		"ACRONYM",    
+		"ARTICLE",
+		"ASIDE",
+		"AUDIO",
+		"B",
+		"BDI",
+		"BDO",
+		"BLOCKQUOTE",
+		"BODY",
+		"CITE",
+		"CODE",
+		"DATA",
+		"DD",
+		"DEL",
+		"DETAILS",
+		"DFN",
+		"DIALOG",
+		"DIV",
+		"DL",
+		"DT",
+		"EM",
+		"FIELDSET",
+		"FIGCAPTION",
+		"FIGURE",
+		"FORM",
+		"HTML",
+		"I",
+		"P",
+		"SUMMARY" ];
 
 }
 Controller.prototype.process = function(e) {
@@ -39,6 +72,9 @@ Controller.prototype.process = function(e) {
 		console.log("INPUT ELEMENT CLICKED");
 		console.log("Controller " + e.target.nodeName);
 
+		this.model.update(e.target.nodeName);
+		this.view.update();
+	} else {
 		this.model.update(e.target.nodeName);
 		this.view.update();
 	}
