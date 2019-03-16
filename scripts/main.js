@@ -4,7 +4,11 @@ function Model() {
 }
 Model.prototype.update = function(data) {
 	console.log("MODEL");
-	// AJAX calls go here
+
+
+	// AJAX call goes here
+
+
 	this.state = data;
 }
 Model.prototype.getState = function() {
@@ -15,21 +19,25 @@ Model.prototype.getState = function() {
 function View(model) {
 	this.model = model;
 }
-View.prototype.update = function(event) {
+View.prototype.update = function(action) {
 	console.log("View");
 	var output = document.getElementById("output");
 	output.value = this.model.getState();
 
-	
-	// document.body.style.backgroundColor = getRandomColor();
+	if(action) {
+		document.body.style.backgroundColor = getRandomColor();
+	}
 }
 
 
 function Controller(model, view) {
 	this.model = model;
 	this.view = view;
+
+	// To take action on a particular element
+	// comment it out of the list below
 	this.elementsToIgnore = [ 
-		"A",
+		/* "A", */
 		"ABBR",
 		"ACRONYM",    
 		"ARTICLE",
@@ -62,9 +70,9 @@ function Controller(model, view) {
 		"SUMMARY" ];
 
 }
-Controller.prototype.process = function(e) {
-	
+Controller.prototype.process = function(e) {	
 	var etn = e.target.nodeName;
+
 	if(!this.elementsToIgnore.includes(etn)) {	
 		e.preventDefault();
 		e.stopImmediatePropagation();
@@ -73,21 +81,29 @@ Controller.prototype.process = function(e) {
 		console.log("Controller " + e.target.nodeName);
 
 		this.model.update(e.target.nodeName);
-		this.view.update();
+		this.view.update(true);
 	} else {
 		this.model.update(e.target.nodeName);
-		this.view.update();
+		this.view.update(false);
 	}
 }
+
 
 var model = new Model();
 var view = new View(model);
 var controller = new Controller(model, view);
 
+
+
+
 // Capture all click events
 window.onclick = function(e) {
 	controller.process(e);
 }
+
+
+
+
 
 function getRandomColor() {
 	var letters = '0123456789ABCDEF';
