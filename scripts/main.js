@@ -63,6 +63,7 @@ function Controller(model, view) {
 		"FIELDSET",
 		"FIGCAPTION",
 		"FIGURE",
+		"FOOTER",
 		"FORM",
 		"HTML",
 		"I",
