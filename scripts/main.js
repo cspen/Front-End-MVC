@@ -34,6 +34,10 @@ function Controller(model, view) {
 	this.model = model;
 	this.view = view;
 
+	/* I think it would be better to keep a list
+	   of clickable elements rather than a list of
+	   all elements. */
+
 	// To take action on a particular element
 	// comment it out of the list below
 	this.elementsToIgnore = [ 
