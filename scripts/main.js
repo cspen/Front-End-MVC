@@ -34,51 +34,14 @@ function Controller(model, view) {
 	this.model = model;
 	this.view = view;
 
-	/* I think it would be better to keep a list
-	   of clickable elements rather than a list of
-	   all elements. */
-
-	// To take action on a particular element
-	// comment it out of the list below
-	this.elementsToIgnore = [ 
-		/* "A", */
-		"ABBR",
-		"ACRONYM",    
-		"ARTICLE",
-		"ASIDE",
-		"AUDIO",
-		"B",
-		"BDI",
-		"BDO",
-		"BLOCKQUOTE",
-		"BODY",
-		"CITE",
-		"CODE",
-		"DATA",
-		"DD",
-		"DEL",
-		"DETAILS",
-		"DFN",
-		"DIALOG",
-		"DIV",
-		"DL",
-		"DT",
-		"EM",
-		"FIELDSET",
-		"FIGCAPTION",
-		"FIGURE",
-		"FOOTER",
-		"FORM",
-		"HTML",
-		"I",
-		"P",
-		"SUMMARY" ];
+	// Elements we are interested in
+	this.actionElements = ["A", "INPUT", "SELECT", "OPTION", ];
 
 }
 Controller.prototype.process = function(e) {	
 	var etn = e.target.nodeName;
 
-	if(!this.elementsToIgnore.includes(etn)) {	
+	if(this.actionElements.includes(etn)) {	
 		e.preventDefault();
 		e.stopImmediatePropagation();
 	
