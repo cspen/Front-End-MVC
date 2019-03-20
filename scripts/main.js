@@ -35,7 +35,7 @@ function Controller(model, view) {
 	this.view = view;
 
 	// Elements we are interested in
-	this.actionElements = ["A", "INPUT", "SELECT", "OPTION", ];
+	this.actionElements = ["A", "INPUT", "SELECT", "OPTION", "TEXTAREA" ];
 
 }
 Controller.prototype.process = function(e) {	
