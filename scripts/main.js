@@ -35,7 +35,8 @@ function Controller(model, view) {
 	this.view = view;
 
 	// Elements we are interested in
-	this.actionElements = ["A", "INPUT", "SELECT", "OPTION", "TEXTAREA" ];
+	this.actionElements = ["A", "BUTTON", "INPUT", "SELECT",
+		"OPTION", "TEXTAREA" ];
 
 }
 Controller.prototype.process = function(e) {	
@@ -66,6 +67,9 @@ var controller = new Controller(model, view);
 
 // Capture all click events
 window.onclick = function(e) {
+	controller.process(e);
+}
+window.onkeyup = function(e) {
 	controller.process(e);
 }
 
