@@ -49,6 +49,11 @@ Controller.prototype.process = function(e) {
 		console.log("INPUT ELEMENT CLICKED");
 		console.log("Controller " + e.target.nodeName);
 
+		// Call user defined function
+		if(typeof functionName == 'function') { 
+  			functionName(etn); 
+		}
+
 		this.model.update(e.target.nodeName);
 		this.view.update(true);
 	} else {
@@ -65,7 +70,7 @@ var controller = new Controller(model, view);
 
 
 
-// Capture all click events
+// Capture all events
 window.onclick = function(e) {
 	controller.process(e);
 }
@@ -75,7 +80,13 @@ window.onkeyup = function(e) {
 window.onmouseover = function(e) {
 	controller.process(e);
 }
+window.onload = function(e) {
+	alert("LOADED");
+}
 
+function functionName() {
+	console.log("FUNCTION REACHED");
+}
 
 
 
