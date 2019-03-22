@@ -72,6 +72,9 @@ window.onclick = function(e) {
 window.onkeyup = function(e) {
 	controller.process(e);
 }
+window.onmouseover = function(e) {
+	controller.process(e);
+}
 
 
 
