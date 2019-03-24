@@ -1,9 +1,11 @@
 
 function Model() {
 	this.state;
+	this.count = 0;
 }
 Model.prototype.update = function(data) {
-	console.log("MODEL");
+	console.log("AJAX CALL " + this.count);
+	this.count = this.count+1;
 
 
 	// AJAX call goes here
@@ -20,7 +22,7 @@ function View(model) {
 	this.model = model;
 }
 View.prototype.update = function(action) {
-	console.log("View");
+	console.log("VIEW");
 	var output = document.getElementById("output");
 	output.value = this.model.getState();
 
@@ -81,12 +83,9 @@ window.onmouseover = function(e) {
 	controller.process(e);
 }
 window.onload = function(e) {
-	alert("LOADED");
+	// alert("LOADED");
 }
 
-function functionName() {
-	console.log("FUNCTION REACHED");
-}
 
 
 
