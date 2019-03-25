@@ -10,6 +10,21 @@ Model.prototype.update = function(data) {
 
 	// AJAX call goes here
 
+	// Not all events necessarily require
+	// an AJAX call, so I'm going to need
+	// to rethink this design.
+
+	// One idea is to use a flag variable
+	// passed from the controller. However
+	// this requires double logic since the
+	// controller will set the flag and the
+	// model will check the flag
+
+	// Another idea is to have an ajax function
+	// for AJAX calls and another function when
+	// AJAX isn't needed - putting the decision
+	// logic in the controller
+
 
 	this.state = data;
 }
@@ -31,7 +46,10 @@ View.prototype.update = function(action) {
 	}
 }
 
-
+/**
+ * The controller decides which elements
+ * are significant.
+ */
 function Controller(model, view) {
 	this.model = model;
 	this.view = view;
@@ -58,7 +76,9 @@ Controller.prototype.process = function(e) {
 
 		this.model.update(e.target.nodeName);
 		this.view.update(true);
-	} else {
+	} else { 
+		// An insignificant element 
+		// Code for testing - will be removed
 		this.model.update(e.target.nodeName);
 		this.view.update(false);
 	}
@@ -82,9 +102,7 @@ window.onkeyup = function(e) {
 window.onmouseover = function(e) {
 	controller.process(e);
 }
-window.onload = function(e) {
-	// alert("LOADED");
-}
+window.onload = function(e) {}
 
 
 
