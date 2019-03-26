@@ -32,7 +32,10 @@ Model.prototype.getState = function() {
 	return this.state;
 }
 
-
+/**
+ * The view updates the DOM and
+ * element values.
+ */
 function View(model) {
 	this.model = model;
 }
@@ -67,13 +70,14 @@ Controller.prototype.process = function(e) {
 		e.stopImmediatePropagation();
 	
 		console.log("INPUT ELEMENT CLICKED");
-		console.log("Controller " + e.target.nodeName);
+		console.log("Controller " + e.target.id);
 
 		// Call user defined function
 		if(typeof functionName == 'function') { 
   			functionName(etn); 
 		}
 
+		// Update model and view
 		this.model.update(e.target.nodeName);
 		this.view.update(true);
 	} else { 
