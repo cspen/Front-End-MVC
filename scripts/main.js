@@ -63,9 +63,9 @@ function Controller(model, view) {
 
 }
 Controller.prototype.process = function(e) {	
-	var etn = e.target.nodeName;
+	var etn = e.target;
 
-	if(this.actionElements.includes(etn)) {	
+	if(this.actionElements.includes(etn.nodeName)) {	
 		e.preventDefault();
 		e.stopImmediatePropagation();
 	
@@ -74,7 +74,7 @@ Controller.prototype.process = function(e) {
 
 		// Call user defined function
 		if(typeof functionName == 'function') { 
-  			functionName(etn); 
+  			functionName(e); 
 		}
 
 		// Update model and view
