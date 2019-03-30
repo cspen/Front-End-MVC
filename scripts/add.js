@@ -13,6 +13,6 @@ function functionName(etn) {
 		var canvas = document.getElementById("myCanvas");
 		var ctx = canvas.getContext("2d");
 		ctx.fillStyle = getRandomColor();
-		ctx.fillRect(0, 0, 80, 80);
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
 	}
 }
