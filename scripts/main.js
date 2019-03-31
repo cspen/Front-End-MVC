@@ -3,13 +3,11 @@ function Model() {
 	this.state;
 	this.count = 0;
 }
-Model.prototype.update = function(data) {
-	console.log("AJAX CALL " + this.count);
+Model.prototype.update = function(obj) {
+	// console.log("AJAX CALL " + this.count);
 	this.count = this.count+1;
 
-
 	// AJAX call goes here
-
 	// Not all events necessarily require
 	// an AJAX call, so I'm going to need
 	// to rethink this design.
@@ -24,9 +22,7 @@ Model.prototype.update = function(data) {
 	// for AJAX calls and another function when
 	// AJAX isn't needed - putting the decision
 	// logic in the controller
-
-
-	this.state = data;
+	this.state = obj.target.nodeName;
 }
 Model.prototype.getState = function() {
 	return this.state;
@@ -38,9 +34,11 @@ Model.prototype.getState = function() {
  */
 function View(model) {
 	this.model = model;
+	this.node;
 }
-View.prototype.update = function(action) {
-	console.log("VIEW");
+View.prototype.update = function(action, node) {
+	this.node = node;
+	// console.log("VIEW");
 	var output = document.getElementById("output");
 	output.value = this.model.getState();
 
@@ -49,7 +47,12 @@ View.prototype.update = function(action) {
 	}
 }
 View.prototype.default = function() {
-	alert("DEFAULT");
+	if(this.element == "INPUT" ) {
+		console.log("DEFAULT");
+	} else {
+		console.log("ELSE DEFAULT  (" + this.element + ")");
+	}
+	
 }
 
 /**
@@ -79,8 +82,8 @@ Controller.prototype.process = function(e) {
 		e.preventDefault();
 		e.stopImmediatePropagation();
 	
-		console.log("INPUT ELEMENT CLICKED");
-		console.log("Controller " + e.target.id);
+		// console.log("INPUT ELEMENT CLICKED");
+		console.log("CONTROLLER " + e.target.nodeName);
 
 		// Call user defined function
 		if(typeof functionName == 'function') { 
@@ -88,13 +91,8 @@ Controller.prototype.process = function(e) {
 		}
 
 		// Update model and view
-		this.model.update(e.target.nodeName);
-		this.view.update(true);
-	} else { 
-		// An insignificant element 
-		// Code for testing - will be removed
-		this.model.update(e.target.nodeName);
-		this.view.update(false);
+		this.model.update(e);
+		this.view.update(e.target.nodeName);
 	}
 }
 
