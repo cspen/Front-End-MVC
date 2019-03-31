@@ -48,6 +48,9 @@ View.prototype.update = function(action) {
 		document.body.style.backgroundColor = getRandomColor();
 	}
 }
+View.prototype.default = function() {
+	alert("DEFAULT");
+}
 
 /**
  * The controller decides which elements
