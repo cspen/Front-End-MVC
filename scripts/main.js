@@ -38,7 +38,7 @@ function View(model) {
 }
 View.prototype.update = function(action, node) {
 	this.node = node;
-	// console.log("VIEW");
+	console.log("VIEW " + this.node + " : " + node);
 	var output = document.getElementById("output");
 	output.value = this.model.getState();
 
@@ -47,7 +47,7 @@ View.prototype.update = function(action, node) {
 	}
 }
 View.prototype.default = function() {
-	if(this.element == "INPUT" ) {
+	if(this.node == "INPUT" ) {
 		console.log("DEFAULT");
 	} else {
 		console.log("ELSE DEFAULT  (" + this.element + ")");
@@ -83,7 +83,7 @@ Controller.prototype.process = function(e) {
 		e.stopImmediatePropagation();
 	
 		// console.log("INPUT ELEMENT CLICKED");
-		console.log("CONTROLLER " + e.target.nodeName);
+		
 
 		// Call user defined function
 		if(typeof functionName == 'function') { 
@@ -92,7 +92,9 @@ Controller.prototype.process = function(e) {
 
 		// Update model and view
 		this.model.update(e);
-		this.view.update(e.target.nodeName);
+
+		this.view.update(true, e.target.nodeName);
+		console.log("CONTROLLER " + e.target.nodeName);
 	}
 }
 
