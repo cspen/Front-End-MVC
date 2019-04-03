@@ -34,11 +34,9 @@ Model.prototype.getState = function() {
  */
 function View(model) {
 	this.model = model;
-	this.node;
 }
-View.prototype.update = function(action, node) {
-	this.node = node;
-	console.log("VIEW " + this.node + " : " + node);
+View.prototype.update = function(action) {
+	console.log("VIEW ");
 	var output = document.getElementById("output");
 	output.value = this.model.getState();
 
@@ -46,11 +44,15 @@ View.prototype.update = function(action, node) {
 		document.body.style.backgroundColor = getRandomColor();
 	}
 }
-View.prototype.default = function() {
-	if(this.node == "INPUT" ) {
-		console.log("DEFAULT");
+View.prototype.default = function(elem) {
+	if(elem.nodeName == "INPUT" ) {
+		if(elem.type == "radio") {
+			console.log(" ## " + elem.value);
+			elem.checked = true;
+		}
+		console.log("DEFAULT ***************************");
 	} else {
-		console.log("ELSE DEFAULT  (" + this.element + ")");
+		console.log("ELSE DEFAULT  (" + elem.nodeName + ")");
 	}
 	
 }
@@ -79,8 +81,8 @@ Controller.prototype.process = function(e) {
 	var etn = e.target;
 
 	if(this.actionElements.includes(etn.nodeName)) {	
-		e.preventDefault();
-		e.stopImmediatePropagation();
+		// e.preventDefault();
+		// e.stopImmediatePropagation();
 	
 		// console.log("INPUT ELEMENT CLICKED");
 		
@@ -93,7 +95,7 @@ Controller.prototype.process = function(e) {
 		// Update model and view
 		this.model.update(e);
 
-		this.view.update(true, e.target.nodeName);
+		this.view.update(true);
 		console.log("CONTROLLER " + e.target.nodeName);
 	}
 }
@@ -114,7 +116,7 @@ window.onkeyup = function(e) {
 	controller.process(e);
 }
 window.onmouseover = function(e) {
-	controller.process(e);
+	// controller.process(e);
 }
 window.onload = function(e) {}
 

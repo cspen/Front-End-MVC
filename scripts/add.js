@@ -5,12 +5,12 @@ function functionName(etn) {
 		if(etn.target.id == "click-link") {
 			console.log("LINK CLICKED");
 		}
-		view.default();
+		view.default(etn.target);
 	} else if(etn.target.nodeName === "INPUT") {
 		if(etn.target.id == "output") {
-			console.log("OUTPUT");
-			view.default();
+			console.log("OUTPUT");			
 		}
+		view.default(etn.target);
 	} else if(etn.target.nodeName === "CANVAS") {
 		var canvas = document.getElementById("myCanvas");
 		var ctx = canvas.getContext("2d");
